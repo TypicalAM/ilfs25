@@ -85,7 +85,7 @@ func createImage(w http.ResponseWriter, r *http.Request) {
 
 	if _, err = os.Stat(filepath.Join(outputPath, sum+".qcow2")); err == nil {
 		w.WriteHeader(http.StatusOK)
-		fmt.Fprintf(w, "{\"filename:\" \"%s.qcow2\"}", sum)
+		fmt.Fprintf(w, "{\"filename\": \"%s.qcow2\"}", sum)
 		return
 	}
 
@@ -105,7 +105,7 @@ func createImage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	log.Println("Actualy building the shit")
+	log.Println("Building", sum)
 	out := bytes.Buffer{}
 	errBuf := bytes.Buffer{}
 	buildCmd := exec.Command("nix-build", "<nixpkgs/nixos>", "-A", "config.system.build.qcow2", "--out-link", "vm", "--arg", "configuration", string(builderCfg))
@@ -130,7 +130,7 @@ func createImage(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusCreated)
-	fmt.Fprintf(w, "{\"filename:\" \"%s.qcow2\"}", sum)
+	fmt.Fprintf(w, "{\"filename\": \"%s.qcow2\"}", sum)
 }
 
 func main() {
