@@ -72,7 +72,7 @@ fi
     };
 
     systemd.tmpfiles.rules = [
-      "w /FLAGA - - - - FLAG{1_10V3_0P3N_50UrC3}"
+      "f /FLAGA.txt 0644 root root - FLAG{1_10V3_0P3N_50UrC3}"
     ];
 
     system.stateVersion = "24.11";
