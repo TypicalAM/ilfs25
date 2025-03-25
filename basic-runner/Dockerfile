@@ -2,6 +2,7 @@ FROM golang:1.23-bullseye
 
 ARG UID=1000
 ARG GID=1000
+ARG VARIANT=first.nix
 
 RUN apt update \
  && apt install -y curl openssh-server rsync qemu-system netcat ssh-tools jq \
@@ -21,6 +22,6 @@ COPY runner.sh /app
 RUN chmod +x /app/runner.sh \
  && chown student /app/runner.sh
 
-COPY first.nix /app
+COPY $VARIANT /app/blueprint.nix
 
 ENTRYPOINT ["/usr/sbin/sshd", "-D"]

@@ -35,9 +35,9 @@ AAAECe5tJOc1cedLIr02d0PHrif2PDOc67v44ITokrY6ln1LZPSlFqP0cFnTcMPU4ALqBA
 -----END OPENSSH PRIVATE KEY-----
 EOF
 
-echof "#c6a0f6" "Building your machine" curl --silent --data-binary @/app/first.nix builder:8080
+echof "#c6a0f6" "Building your machine" curl --silent --data-binary @/app/blueprint.nix builder:8080
 
-BLUEPRINT_HASH="$(curl --silent --data-binary @/app/first.nix builder:8080 | jq -r '.filename')"
+BLUEPRINT_HASH="$(curl --silent --data-binary @/app/blueprint.nix builder:8080 | jq -r '.filename')"
 BLUEPRINT_FILENAME="/blueprint/$BLUEPRINT_HASH"
 FINAL_FILENAME="/output/$MACHINE_ID-$BLUEPRINT_HASH"
 
